@@ -14,10 +14,14 @@ env:
     ECR_REPO_NAME: "hafiz-repo"
 
 phases:
+
   install:
     runtime-versions:
       docker: 24
-
+      nodejs: 22
+    commands:
+      - echo Installing source NPM dependencies
+      - npm install
   pre_build:
     commands:
       - echo Logging into Amazon ECR 
