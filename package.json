@@ -1,0 +1,16 @@
+{
+  "name": "simple-node-app",
+  "version": "1.0.0",
+  "description": "This is simple node js application for practicing aws services such as code pipeline, ECR etc",
+  "license": "ISC",
+  "author": "Hafiz Umair",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "experss": "^0.0.1-security",
+    "express": "^5.2.1"
+  }
+}

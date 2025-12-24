@@ -1,0 +1,38 @@
+
+
+
+
+
+
+
+
+version: 0.2
+env:
+  variables:
+    AWS_ACCOUNT_ID: "971422673599"
+    AWS_DEFAULT_REGION: "us-east-1"
+    ECR_REPO_NAME: "hafiz-repo"
+
+phases:
+  install:
+    runtime-versions:
+      docker: 24
+
+  pre_build:
+    commands:
+      - echo Logging into Amazon ECR 
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 971422673599.dkr.ecr.us-east-1.amazonaws.com
+      - REPOSITORY_URI=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${ECR_REPO_NAME}
+  
+  build:
+    commands:
+      - echo Build started on `data`
+      - echo Building the Docker image
+      - docker build -t ${ECR_REPO_NAME} .
+      - docker tag ${ECR_REPO_NAME}:latest ${REPOSITORY_URI}:latest
+  
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image
+      - docker push ${REPOSITORY_URI}:latest
